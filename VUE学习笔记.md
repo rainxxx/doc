@@ -267,6 +267,25 @@ var app3 = new Vue({
 
 4.1 必须在创建Vue实前定义好需要响应的变量
 
+4.2 组件参数时v-bind:属性代表动态绑定如果是字符串不要加v-bind:
+
+```html
+var MyTitle = {
+    props:['title'],
+    template: '<span >标题是：{{title}} </span>'
+}
+
+<!-- 动态绑定的值可以是Number，Boolean，Methods中的一个方法名,但不能是一个字符串 -->
+<my-title v-bind:title="1"></my-title>
+<my-title v-bind:title="true"></my-title>
+<my-title v-bind:title="methodName"></my-title>
+
+<!-- 不加v-bind那么里面的值会被解析为字符串 -->
+<my-title title="1"></my-title>
+```
+
+
+
 ## 5. 常用指令
 
 ## 6. 常用参数
