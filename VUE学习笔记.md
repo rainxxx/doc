@@ -101,7 +101,7 @@ var app4 = new Vue({
 
 
 
-#### 2.4创建监听
+#### 2.4 创建监听
 
 `v-on:click="xxx"`
 
@@ -166,6 +166,24 @@ new Vue({
 {{ message.split('').reverse().join('') }}
 
 <div v-bind:id="'list-' + id"></div>
+```
+
+#### 2.8 过滤器
+
+```html
+{{date | formatDate}}
+
+var app = new Vue({
+	//省略el data等内容...
+    filters:{
+    formateDate: function(value){
+        //这里的value就是date的值
+        //可以在这里面进行逻辑判断然后return最终想要显示的值
+        return '';
+    }
+    }
+})
+
 ```
 
 
@@ -240,7 +258,7 @@ var app2 = new Vue({
 });
 ```
 
-#### 3.4 绑定时间
+#### 3.4 绑定事件
 
 绑定onclick时间示例：
 
@@ -259,6 +277,79 @@ var app3 = new Vue({
         }
     }
 });
+```
+
+#### 3.5 绑定事件传递DOM参数
+
+```html
+<div id="app">
+    <a href="https://www.baidu.com" @click="handleClose('不要打开',$event)">点击</a>
+</div>
+```
+
+```javascript
+var app = new Vue({
+    el: '#app',
+    methods: {
+        // 这里event就是事件
+        handleClose(text,event){
+            event.preventDefault();
+            alert(text);
+        }
+    }
+})
+```
+
+#### 3.6 更新数组
+
+```javascript
+1. push()	//在数组末尾处新增元素
+2. pop()	//删除数组中最后一个值,并且将最后一个值作为返回结果返回,如果数组为null将返回undefied
+3. shift()	//删除数组中第一个值，并且将删除的值返回
+4. unshift()//在数组首位添加元素,即array[0]添加一个元素
+5. splice()	//插入、删除或替换数组的元素。这种方法会改变原始数组
+6. sort()	//排序,默认升序排序(1,2,3)
+7. reverse()//反转数组元素,比如array == ['A','B','C'] array.reverse() == ['C','B','A']
+```
+
+##### 3.6.1 splice()方法详解
+
+```javascript
+/* splice使用示例 */
+var texts = [1,2,3];
+
+/*替换指定下标内容*/
+texts.splice(2,1,'A'); /* 等价于 */  text[2] = 'A';
+//输出的结果都为：texts = [1,2,A]
+
+/*删除指定下标内容*/
+texts.splice(2,1);
+//输出结果为：texts = [1,2]; 索引为2的被删除了
+
+/*在指定下标添加内容*/
+texts.splice(2,0,'spliceAdd');
+//输出结果为：texts = [1,2,'spliceAdd',3],在索引2的位置增加了一个字符串'spliceAdd'
+
+/*在指定下标添加多个内容*/
+texts.splice(2,0,'spliceAdd1','spliceAdd2');
+//输出结果为：texts = [1,2,'spliceAdd1','spliceAdd2']
+```
+
+##### 3.6.2 sort()方法详解
+
+```javascript
+/* splice使用示例 */
+var texts = [2,1,3];
+
+// 对数组升序
+this.texts.sort(function(a,b){
+    return a<b;
+});
+//最终结果为：var texts = [3,2,1]
+
+// 对数组降序
+this.texts.sort();
+//最终结果为：var texts = [1,2,3]
 ```
 
 
@@ -291,6 +382,24 @@ var MyTitle = {
 #### 4.3 不要用关键字命名
 
 不能使用常用关键字来给组件命名，比如main否则会报错
+
+#### 4.4 method中调用其它method
+
+```javascript
+var methods = {
+    handleClose: function(){
+        // 可以通过this来调用其他method
+        this.close();
+    },
+    close: function(){
+        this.show = false;
+    }
+}
+```
+
+
+
+
 
 ## 5. 常用指令
 
