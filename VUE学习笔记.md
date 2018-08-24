@@ -383,7 +383,7 @@ var MyTitle = {
 
 不能使用常用关键字来给组件命名，比如main否则会报错
 
-#### 4.4 method中调用其它method
+#### 4.4 method中调用method
 
 ```javascript
 var methods = {
@@ -397,9 +397,59 @@ var methods = {
 }
 ```
 
+#### 4.5 $emit()参数命名
+
+this.$emit('event-name',params)
+
+这里像父级事件命名的时候一定要是xxx-xxx的方式不要用驼峰
+
+提示：$emit('xxx');将会触发组件外父类名叫xxx的事件
+
+```javascript
+//组件Template
+<script type="text/x-template" id="number-input">
+	<button @click="handleAddOne">+</button>
+</script>
+
+//组件JS
+Vue.component('number-input',{
+    template: '#number-input',
+    methods: {
+        handleAddOne(){
+            this.$emit('fff',5);
+        }
+    }
+});
+
+//父类引用组件
+<number-input v-model="age" @fff="handleFFF()"></number-input>
+
+//父类JS
+var app = new Vue({
+    el: '#app',
+    data: {
+        age: 1
+    },
+    methods: {
+        handleFFF(n){
+            alert(n);
+        }
+    } 
+})
+
+/**
+ * 当子组件触发$emit('fff')时,父组件将会触发自身的fff事件,而fff事件被handleFFF方法处理，所以就变相   * 的调用了handleFFF方法并且把子组件的数据传递给了父组件
+ */
+
+```
 
 
 
+#### 4.6 @click.native
+
+表示触发原生的click事件
+
+**应用场景：**在组件中使用@click事件不会生效但是加上.native就会生效了
 
 ## 5. 常用指令
 
