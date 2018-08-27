@@ -1,0 +1,129 @@
+http://download.oracle.com/otn-pub/java/jdk/8u161-b12/2f38c3b165be4555a1fa6e98c45e0808/jdk-8u161-linux-x64.tar.gz
+
+
+wget [url]
+tar -zxvf [压缩包] 
+
+rm -rf [要删除的文件]
+vi 要编辑的文件
+:!q 强制退出
+:wq 保存并退出
+:set number 显示行号
+vi中按u是撤销操作
+用v选中文本之后可以按y进行复制，如果按d就表示剪切，之后按p进行粘贴。
+source profile 使系统配置文件生效
+sh startup
+yum install [要安装的软件名称] 
+pwd 查看当前所在目录
+cp -p [要复制的文件名]  [要复制的地址]
+chmod 777 文件  ，设置文件权限 第一个数代表当前用户 第二个代表当前用户所在组 第三个代表其他用户
+ps -ef | grep svn 查看svn的进程信息
+kill -9 进程号  代表强制关闭线程
+vi模式下，gg返回顶部，shift+g到底部。
+mv [目标文件] [要修改的名字]
+su - [要切换的用户]
+chown [用户名:组名] [文件名] -R （-R代笔递归下面所有文件）
+chgrp [组名] [文件名] -R
+touch [要创建的文件名] 
+ssh guyang@39.107.76.38 (SSH连接远程服务)
+ssh-add [私钥位置]
+sudo su root 切换root指令
+
+
+关于SVN的命令
+killall svnserve 关闭SVN服务
+svnserve -d -r /home/application/repository 开启svn服务
+
+
+
+
+安装SVN
+
+
+
+linux目录
+系统环境变量会默认查找/bin，/sbin 之后会查询 user/bin，user/sbin 在之后会查询 user/local/bin，user/local/sbin
+
+
+find / -name git|xargs rm -rf
+
+
+
+
+
+
+
+查看系统中有哪些服务是自启动的
+chkconfig --list 
+
+设置服务开机自动启动
+服务一定是在/etc/init.d/目录中存在然后执行如下指令
+chkconfig --add mysqld
+
+设置在哪个系统运行级别下自动启动
+chkconfig --level 2345 mysqld on
+
+还有一种自启动的方式
+修改/etc/rc.d/rc.local文件
+记住！执行指令一定要写绝对路径比如/usr/local/bin/redis-server 不能写成redis-server
+在这个文件中写入你开机时要执行的命令，系统开机每次都会执行这个脚本文件，会执行你写在里面的指令
+
+
+查看当前系统运行级别
+runlevel
+
+修改系统运行级别
+init 6 相当于重启
+
+查看目前系统启动了哪些服务
+netstat -tlunp 
+
+查看某个端口是否被占用
+lsof -i:3306  
+lsof需要安装 yum install lsof
+
+设置服务开机自启动
+
+httpd mysqld 带一个d代表守护进程，以下是关于守护进程的概念
+https://www.jianshu.com/p/47ceac3a0e51
+系统分为
+前台进程：与用户做交互占用当前Session可以理解为终端，比如mysql就是一个典型的前台进程，会与用户做交互，用户需要连接并且操作
+后台进程：后台进程就是在后台默默地执行不会与用户做直接交互
+守护进程：将前台进程变为系统后台去执行，比如将mysql变为后台执行脱离终端，这样的进程称之为守护进程，守护进程通常以d结尾，比如mysqld，httpd
+
+
+
+
+启动服务
+/etc/init.d/服务名 start|stop|status|restart
+service 服务名 start|stop|status|restart service这个命令是红帽系列linux专有的命令，centos也是红帽系列
+
+源码报服务要尽量安装到/usr/local/目录下
+usr不是user的缩写，是unix system resource unix系统资源目录的缩写 
+
+rpm包安装的时候不要指定位置，就按照默认位置安装就好，不然卸载的时候不知道文件在哪，默认安装直接执行rpm -e 就可以卸载掉
+
+redis客户端工具下载
+https://redisdesktop.com/download
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
