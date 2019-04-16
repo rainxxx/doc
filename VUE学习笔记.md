@@ -482,3 +482,7 @@ http://www.cnblogs.com/momozjm/p/6297455.html
 #### 8.7 安装nodejs
 
 https://www.cnblogs.com/yominhi/p/7039795.html
+
+#### 8.8 父子组件通信
+
+https://segmentfault.com/a/1190000010530600
